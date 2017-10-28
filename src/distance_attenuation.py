@@ -30,11 +30,13 @@ def test_0():
     R = 10.0
     rs = np.linspace(0.1, 0.01, 1000)
     
+    plt.figure()
+    
     plt.plot(rs, f0(rs), label=f0.__name__)
-    plt.plot(rs, f1(rs, R), label=f1.__name__)
-    plt.plot(rs, f2(rs, R), label=f2.__name__)
-    plt.plot(rs, f3(rs, R), label=f3.__name__)
-    plt.plot(rs, f4(rs, R), label=f4.__name__)
+    #plt.plot(rs, f1(rs, R), label=f1.__name__)
+    #plt.plot(rs, f2(rs, R), label=f2.__name__)
+    #plt.plot(rs, f3(rs, R), label=f3.__name__)
+    #plt.plot(rs, f4(rs, R), label=f4.__name__)
     plt.plot(rs, f5(rs, R), label=f5.__name__)
     
     plt.legend()
@@ -43,14 +45,17 @@ def test_R():
     R = 10.0
     rs = np.linspace(8.0, 12.0, 1000)
     
+    plt.figure()
+    
     # (-): no finite range
     plt.plot(rs, f0(rs), label=f0.__name__)
     
     # (-): no first order derivative at R
-    #plt.plot(rs, f1(rs, R), label=f1.__name__)
+    plt.plot(rs, f1(rs, R), label=f1.__name__)
     #plt.plot(rs, f2(rs, R), label=f2.__name__)
     #plt.plot(rs, f3(rs, R), label=f3.__name__)
     #plt.plot(rs, f4(rs, R), label=f4.__name__)
+    
     plt.plot(rs, f5(rs, R), label=f5.__name__)
     
     plt.legend()
