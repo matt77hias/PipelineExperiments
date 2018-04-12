@@ -29,6 +29,8 @@ Cone sampling and cone weights.
 
 ## See also
 
+[MAGE](https://github.com/matt77hias/MAGE): Matthias Advanced Game Engine
+
 | Libraries                                          | Description                                                        |
 |----------------------------------------------------|--------------------------------------------------------------------|
 | [basispy](https://github.com/matt77hias/basispy)   | Utilities for calculating (orthonormal) bases                      |
