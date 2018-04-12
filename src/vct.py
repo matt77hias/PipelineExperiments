@@ -1,19 +1,11 @@
+# -*- coding: utf-8 -*-
 from IPython.display import display
-import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
 import sympy as sp
 
-def copysign(v, x):
-    return v if x >= 0.0 else -v
-
-def onb(n):
-    s = copysign(1.0, n[2])
-    a = -1.0 / (s + n[2])
-    b = n[0] * n[1] * a
-    b1 = np.array([1.0 + s * n[0] * n[0] * a, s * b, -s * n[0]], dtype=np.float32)
-    b2 = np.array([b, s + n[1] * n[1] * a, -n[1]], dtype=np.float32)
-    return np.array([b1, b2, n])
+from onb import OrthonormalBasis as onb
 
 ###############################################################################
 # Cones
@@ -71,7 +63,7 @@ def draw_cones():
     for direction in directions:
         xs, ys, zs = get_cone(direction)
         ax.plot_surface(xs, ys, zs)
-    
+        
     plt.show()
    
 ###############################################################################

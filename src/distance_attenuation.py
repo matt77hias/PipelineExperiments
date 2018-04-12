@@ -1,31 +1,38 @@
-import numpy as np
+# -*- coding: utf-8 -*-
+from math_utils import saturate
 import matplotlib.pyplot as plt
+import numpy as np
 
-def saturate(x, low=0.0, high=1.0):
-    return np.clip(x, low, high)
+###############################################################################
+# Distance Attenuation
+###############################################################################
 
 def fref(rs):
-    return np.vectorize(lambda r: 1.0/(r**2))(rs)
+    return 1.0/(rs**2)
     
 def f0(rs):
-    return np.vectorize(lambda r: 1.0/(max(0.01**2, r**2)))(rs)
+    return 1.0/np.maximum(0.01**2, rs**2)
     
 def f1(rs, R):
-    return np.vectorize(lambda r: max(0.0, 1.0/(r**2) - 1.0/(R**2)))(rs)
-    
+    return np.maximum(0.0, 1.0/(rs**2) - 1.0/(R**2))
+
 def f2(rs, R, a=0.01):
-    return np.vectorize(lambda r: max(0.0, 1.0/(r**2+a**2) - 1.0/(R**2+a**2)))(rs)
+    return np.maximum(0.0, 1.0/(rs**2+a**2) - 1.0/(R**2+a**2))
     
 def f3(rs, R):
-    return np.vectorize(lambda r: f0(r) * saturate(1.0 - r/R))(rs)
+    return f0(rs) * saturate(1.0-rs/R)
     
 def f4(rs, R):
-    threshold = 1.0 / (R*R)
-    return np.vectorize(lambda r: 1.0/saturate(1.0 - threshold) * saturate(f0(r) - threshold))(rs)
+    threshold = 1.0/(R*R)
+    return 1.0/saturate(1.0-threshold) * saturate(f0(rs)-threshold)
     
 def f5(rs, R, n=4):
-    return np.vectorize(lambda r: f0(r) * saturate(1.0 - r**n/R**n)**2)(rs)
+    return f0(rs) * saturate(1.0-rs**n/R**n)**2
     
+###############################################################################
+# Tests
+###############################################################################
+
 def test_0():
     R = 10.0
     rs = np.linspace(0.1, 0.01, 1000)
