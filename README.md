@@ -3,7 +3,7 @@
 ## About
 Rendering Pipeline Experiments
 
-### Distance Attenuation
+### [Distance Attenuation](https://github.com/matt77hias/PipelineExperiments/blob/master/src/distance_attenuation.py)
 Various distance attenuation functions for point lights (omni lights and spotlights).
 
 <p align="center">
@@ -11,7 +11,7 @@ Various distance attenuation functions for point lights (omni lights and spotlig
 <img src="res/distance_attenuation2.png" width="430">
 </p>
 
-### Dither
+### [Dither](https://github.com/matt77hias/PipelineExperiments/blob/master/src/dither.py)
 Various noise functions, hashing functions and random number generators for dithering.
 
 <p align="center">
@@ -19,7 +19,7 @@ Various noise functions, hashing functions and random number generators for dith
 <img src="res/dither2.png" width="430">
 </p>
 
-## Voxel Cone Tracing
+## [Voxel Cone Tracing](https://github.com/matt77hias/PipelineExperiments/blob/master/src/vct.py)
 Cone sampling and cone weights.
 
 <p align="center">
