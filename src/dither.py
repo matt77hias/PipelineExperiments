@@ -66,6 +66,12 @@ def rng1(seed):
     mantissa_mask = np.uint32(0xffffffff) >> np.uint32(32-23)
     return frac(np.float32(urand & mantissa_mask) / np.float32(mantissa_mask))
 
+def rng2(seed):
+    urand = hash_wang(seed)
+    data_bytes = np.array([0x00, 0x00, 0x80, 0x2F], dtype=np.uint8)
+    multiplier = data_bytes.view(dtype=np.float32) # 2^32
+    return urand * multiplier 
+
 ###############################################################################
 # Tests
 ###############################################################################
@@ -96,3 +102,4 @@ def dither(resolution=(1200,720), f=noise11, normalized=True):
 def test():
     dither(f=noise11, normalized=True)
     dither(f=rng1,    normalized=False)
+    dither(f=rng2,    normalized=False)
