@@ -72,6 +72,10 @@ def rng2(seed):
     multiplier = data_bytes.view(dtype=np.float32) # 2^32
     return urand * multiplier 
 
+def rng3(seed):
+    urand = hash_wang(seed)
+    return np.float32(urand & (2**24 - 1)) / np.float32(2**24)
+
 ###############################################################################
 # Tests
 ###############################################################################
@@ -101,5 +105,4 @@ def dither(resolution=(1200,720), f=noise11, normalized=True):
 
 def test():
     dither(f=noise11, normalized=True)
-    dither(f=rng1,    normalized=False)
-    dither(f=rng2,    normalized=False)
+    dither(f=rng3,    normalized=False)
