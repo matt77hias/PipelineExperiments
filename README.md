@@ -8,6 +8,9 @@
 ## About
 Rendering Pipeline Experiments
 
+### [BRDFs](https://github.com/matt77hias/PipelineExperiments/blob/master/src/brdf.py)
+Various BRDF functions and components.
+
 ### [Distance Attenuation](https://github.com/matt77hias/PipelineExperiments/blob/master/src/distance_attenuation.py)
 Various distance attenuation functions for point lights (omni lights and spotlights).
 
