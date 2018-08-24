@@ -69,7 +69,7 @@ def draw_cones():
 ###############################################################################
 # Cone Weights
 ###############################################################################
-sp.init_printing(use_unicode=True, wrap_line=False, no_global=True) 
+sp.init_printing(forecolor='White', use_unicode=True, wrap_line=False, no_global=True) 
     
 def calculate_weights():
     theta, phi = sp.symbols('theta phi')
