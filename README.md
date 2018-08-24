@@ -37,7 +37,7 @@ Cone sampling and cone weights.
 
 ## See also
 
-[MAGE](https://github.com/matt77hias/MAGE): Matthias Advanced Game Engine
+[MAGE - Matthias Advanced Game Engine](https://github.com/matt77hias/MAGE)
 
 | Libraries                                          | Description                                                        |
 |----------------------------------------------------|--------------------------------------------------------------------|
