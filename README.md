@@ -27,7 +27,7 @@ Various noise functions, hashing functions and random number generators for dith
 <img src="res/dither2.png" width="430">
 </p>
 
-## [Voxel Cone Tracing](https://github.com/matt77hias/PipelineExperiments/blob/master/src/vct.py)
+## [Voxel Cone Tracing](https://github.com/matt77hias/PipelineExperiments/blob/master/src/vct_diffuse.py)
 Cone sampling and cone weights.
 
 <p align="center">
