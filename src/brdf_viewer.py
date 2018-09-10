@@ -88,7 +88,7 @@ slider_roughness.on_changed(update_roughness)
 # Slider: F0
 ###############################################################################
 axes_F0          = plt.axes([0.25, 0.05, 0.40, 0.03]) 
-slider_F0        = Slider(ax=axes_F0, label='F0', 
+slider_F0        = Slider(ax=axes_F0, label=r'$F_{0}$', 
                           valmin=0.0, valmax=1.0, 
                           valinit=material.F0)
 slider_F0.on_changed(update_F0)
