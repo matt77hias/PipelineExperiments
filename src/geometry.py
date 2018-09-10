@@ -43,15 +43,15 @@ class Vector:
         self.p_start = p_start
         self.p_end   = p_end
         
-    def draw(self, axis, *args, **kwargs):
+    def draw(self, axes, *args, **kwargs):
         arrow = Arrow((self.p_start[0],self.p_end[0]), 
                       (self.p_start[1],self.p_end[1]), 
                       (self.p_start[2],self.p_end[2]), 
                       mutation_scale=10, 
-                      lw=3, 
+                      lw=1, 
                       arrowstyle="-|>", 
                       *args, *kwargs)
-        axis.add_artist(arrow)
+        axes.add_artist(arrow)
         
 ###############################################################################
 # Cone
@@ -93,8 +93,8 @@ class Cone:
                                          d_world=self.d_world)
         
 
-    def draw(self, axis, *args, **kwargs):
-        axis.plot_surface(X=self.xs_world, 
+    def draw(self, axes, *args, **kwargs):
+        axes.plot_surface(X=self.xs_world, 
                           Y=self.ys_world, 
                           Z=self.zs_world, 
                           *args, **kwargs)
@@ -136,8 +136,8 @@ class Hemisphere:
                                          p_world=self.p_world, 
                                          d_world=self.d_world)
     
-    def draw(self, axis, *args, **kwargs):
-        axis.plot_surface(X=self.xs_world, 
+    def draw(self, axes, *args, **kwargs):
+        axes.plot_surface(X=self.xs_world, 
                           Y=self.ys_world, 
                           Z=self.zs_world, 
                           *args, **kwargs)

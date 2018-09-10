@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from geometry import Hemisphere, Vector
+from math_utils import lerp, sat_dot, sqr, sqrt, sqr_cos_to_sqr_tan, half_direction, reflected_direction
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-from math_utils import lerp, sat_dot, sqr, sqrt, sqr_cos_to_sqr_tan, half_direction, reflected_direction
 
 ###############################################################################
 # Constants
@@ -356,63 +356,37 @@ def F_CookTorrance(v_dot_h, F0):
 
 class Material:
     
-    def __init__(self, base_color=1.0, roughness=1.0, metalness=0.0):
-        self.base_color = base_color
-        self.roughness  = roughness
-        self.metalness  = metalness
-        self.alpha      = np.maximum(1e-1, sqr(roughness))
+    def __init__(self, roughness=1.0, F0=g_dielectric_F0):
+        self.roughness = roughness
+        self.F0        = F0  
 
 ###############################################################################
 # BRDF
 ###############################################################################
 
-def BRDF(n, l, v, material):
-    n_dot_l       = sat_dot(n, l) + 1e-5
-    n_dot_v       = sat_dot(n, v) + 1e-5
-    h             = half_direction(l, v)
-    n_dot_h       = sat_dot(n, h) + 1e-5
-    v_dot_h       = sat_dot(v, h) + 1e-5
-    
-    D             = D_GGX(n_dot_h, material.alpha)
-    V             = V_GGX(n_dot_v, n_dot_l, n_dot_h, v_dot_h, material.alpha)
-    F0_specular   = lerp(g_dielectric_F0, material.base_color, material.metalness)
-    F_specular    = F_Schlick(v_dot_h, F0_specular)
-    
-    brdf_specular = F_specular * 0.25 * D * V
-    return brdf_specular
+def brdf_blinn_phong(n, l, v, material):
+    brdf = construct_brdf(brdf_D=D_BlinnPhong, brdf_V=V_Implicit, brdf_F=F_None)
+    return brdf(n=n, l=l, v=v, material=material)
+def brdf_cook_torrance(n, l, v, material):
+    brdf = construct_brdf(brdf_D=D_GGX, brdf_V=V_GGX, brdf_F=F_Schlick)
+    return brdf(n=n, l=l, v=v, material=material)
+def brdf_ward_duer(n, l, v, material):
+    brdf = construct_brdf(brdf_D=D_WardDuer, brdf_V=V_Ward, brdf_F=F_None)
+    return brdf(n=n, l=l, v=v, material=material)
 
-def draw_brdf():
-    fig = plt.figure()
-    ax  = fig.gca(projection='3d')
-    ax.set_aspect('equal')
-    ax.set_xticks(np.linspace(-1.0,1.0,5))
-    ax.set_yticks(np.linspace(-1.0,1.0,5))
-    ax.set_zticks(np.linspace( 0.0,1.0,5))
-    ax.set_xlim(-1.0,1.0)
-    ax.set_ylim(-1.0,1.0)
-    ax.set_zlim( 0.0,1.0)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
+def construct_brdf(brdf_D, brdf_V, brdf_F):
+    def brdf(n, l, v, material):
+        alpha         = np.maximum(1e-1, sqr(material.roughness))
+        n_dot_l       = sat_dot(n, l) + 1e-5
+        n_dot_v       = sat_dot(n, v) + 1e-5
+        h             = half_direction(l, v)
+        n_dot_h       = sat_dot(n, h) + 1e-5
+        v_dot_h       = sat_dot(v, h) + 1e-5
     
-    n = np.array([0.0, 0.0, 1.0])
-    v = np.array([-sqrt(2)/2, 0.0, sqrt(2)/2])
-    material = Material(base_color=0.1,roughness=0.1, metalness=0.0)
+        D             = brdf_D(n_dot_h, alpha)
+        V             = brdf_V(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha)
+        F_specular    = brdf_F(v_dot_h, material.F0)
+        
+        return F_specular * 0.25 * D * V
     
-    hemisphere = Hemisphere()
-    for i in range(hemisphere.nb_samples[0]):
-        for j in range(hemisphere.nb_samples[1]):
-            l    = np.array([hemisphere.xs_world[i,j], 
-                             hemisphere.ys_world[i,j], 
-                             hemisphere.zs_world[i,j]])
-            brdf = BRDF(n, l, v, material)
-            hemisphere.xs_world[i,j] *= brdf
-            hemisphere.ys_world[i,j] *= brdf
-            hemisphere.zs_world[i,j] *= brdf
-    
-    hemisphere.draw(ax)
-    Vector(p_end=n).draw(ax)
-    Vector(p_end=v).draw(ax)
-    Vector(p_end=reflected_direction(n, v)).draw(ax)
-    
-    plt.show()
+    return brdf
