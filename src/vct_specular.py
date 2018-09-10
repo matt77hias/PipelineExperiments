@@ -24,6 +24,6 @@ def test():
     S = (F * D * V) / 4
     
     # Integral
-    integrand  = sp.simplify(S * n_dot_l)
+    integrand  = sp.simplify(S * n_dot_l * sp.sin(theta))
     integral   = sp.Integral(integrand, (theta, 0, sp.pi/2), (phi, 0, 2*sp.pi))
     display(integral)

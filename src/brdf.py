@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
+from geometry import Hemisphere, Vector
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
-from math_utils import lerp, normalize, sat_dot, sqr, sqrt, sqr_cos_to_sqr_tan, reflected_direction, half_direction
+from math_utils import lerp, sat_dot, sqr, sqrt, sqr_cos_to_sqr_tan, half_direction, reflected_direction
+
+###############################################################################
+# Constants
+###############################################################################
 
 g_dielectric_F0 = 0.04
 
@@ -357,6 +362,10 @@ class Material:
         self.metalness  = metalness
         self.alpha      = np.maximum(1e-1, sqr(roughness))
 
+###############################################################################
+# BRDF
+###############################################################################
+
 def BRDF(n, l, v, material):
     n_dot_l       = sat_dot(n, l) + 1e-5
     n_dot_v       = sat_dot(n, v) + 1e-5
@@ -372,46 +381,38 @@ def BRDF(n, l, v, material):
     brdf_specular = F_specular * 0.25 * D * V
     return brdf_specular
 
-def get_hemisphere():
-    n = np.array([0.0, 0.0, 1.0])
-    l = np.array([-sqrt(2)/2, 0.0, sqrt(2)/2])
-    material = Material(base_color=0.5,roughness=0.5, metalness=0.0)
-    
-    nb_cos_theta_samples = 16
-    np_phi_samples       = 64
-    
-    radius     = 1.0
-    # shape (nb_cos_theta_samples)
-    cos_thetas = np.linspace(0.0, 1.0, nb_cos_theta_samples)
-    # shape (np_phi_samples)
-    phis       = np.linspace(0.0, 2.0 * np.pi, np_phi_samples)
-    # shape (np_phi_samples,nb_cos_theta_samples)
-    CosT, P    = np.meshgrid(cos_thetas, phis)
-    SinT       = np.sqrt(1.0 - CosT * CosT)
-    xs         = radius * np.cos(P) * SinT
-    ys         = radius * np.sin(P) * SinT
-    zs         = radius * CosT
-    
-    for i in range(np_phi_samples):
-        for j in range(nb_cos_theta_samples):
-            v       = np.array([xs[i,j], ys[i,j], zs[i,j]])
-            zs[i,j] = BRDF(n, l, v, material)
-    
-    return xs, ys, zs
-    
-def test():
+def draw_brdf():
     fig = plt.figure()
     ax  = fig.gca(projection='3d')
     ax.set_aspect('equal')
     ax.set_xticks(np.linspace(-1.0,1.0,5))
     ax.set_yticks(np.linspace(-1.0,1.0,5))
-    ax.set_zticks(np.linspace(-1.0,1.0,5))
+    ax.set_zticks(np.linspace( 0.0,1.0,5))
     ax.set_xlim(-1.0,1.0)
     ax.set_ylim(-1.0,1.0)
-    ax.set_zlim(-1.0,1.0)
+    ax.set_zlim( 0.0,1.0)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
-    xs, ys, zs = get_hemisphere()
-    ax.plot_surface(xs, ys, zs)
+    
+    n = np.array([0.0, 0.0, 1.0])
+    v = np.array([-sqrt(2)/2, 0.0, sqrt(2)/2])
+    material = Material(base_color=0.1,roughness=0.1, metalness=0.0)
+    
+    hemisphere = Hemisphere()
+    for i in range(hemisphere.nb_samples[0]):
+        for j in range(hemisphere.nb_samples[1]):
+            l    = np.array([hemisphere.xs_world[i,j], 
+                             hemisphere.ys_world[i,j], 
+                             hemisphere.zs_world[i,j]])
+            brdf = BRDF(n, l, v, material)
+            hemisphere.xs_world[i,j] *= brdf
+            hemisphere.ys_world[i,j] *= brdf
+            hemisphere.zs_world[i,j] *= brdf
+    
+    hemisphere.draw(ax)
+    Vector(p_end=n).draw(ax)
+    Vector(p_end=v).draw(ax)
+    Vector(p_end=reflected_direction(n, v)).draw(ax)
+    
     plt.show()
