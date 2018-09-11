@@ -363,30 +363,77 @@ class Material:
 ###############################################################################
 # BRDF
 ###############################################################################
-
-def brdf_blinn_phong(n, l, v, material):
-    brdf = construct_brdf(brdf_D=D_BlinnPhong, brdf_V=V_Implicit, brdf_F=F_None)
-    return brdf(n=n, l=l, v=v, material=material)
-def brdf_cook_torrance(n, l, v, material):
-    brdf = construct_brdf(brdf_D=D_GGX, brdf_V=V_GGX, brdf_F=F_Schlick)
-    return brdf(n=n, l=l, v=v, material=material)
-def brdf_ward_duer(n, l, v, material):
-    brdf = construct_brdf(brdf_D=D_WardDuer, brdf_V=V_Ward, brdf_F=F_None)
-    return brdf(n=n, l=l, v=v, material=material)
-
-def construct_brdf(brdf_D, brdf_V, brdf_F):
-    def brdf(n, l, v, material):
-        alpha         = np.maximum(1e-1, sqr(material.roughness))
-        n_dot_l       = sat_dot(n, l) + 1e-5
-        n_dot_v       = sat_dot(n, v) + 1e-5
-        h             = half_direction(l, v)
-        n_dot_h       = sat_dot(n, h) + 1e-5
-        v_dot_h       = sat_dot(v, h) + 1e-5
+class BRDF:
     
-        D             = brdf_D(n_dot_h, alpha)
-        V             = brdf_V(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha)
-        F_specular    = brdf_F(v_dot_h, material.F0)
+    @staticmethod
+    def decode(component, f):
+        if (not isinstance(f, str)):
+            return f
+        name  = component + '_' + f.replace('-', '')
+        return globals()[name]
+    
+    def __init__(self, D, F, G, V):
+        self.D = BRDF.decode(component='D', f=D)
+        self.F = BRDF.decode(component='F', f=F)
+        self.G = BRDF.decode(component='G', f=G)
+        self.V = BRDF.decode(component='V', f=V)
         
-        return F_specular * 0.25 * D * V
+    def __call__(self, n, l, v, material):
+        alpha   = np.maximum(1e-1, sqr(material.roughness))
+        n_dot_l = sat_dot(n, l) + 1e-5
+        n_dot_v = sat_dot(n, v) + 1e-5
+        h       = half_direction(l, v)
+        n_dot_h = sat_dot(n, h) + 1e-5
+        v_dot_h = sat_dot(v, h) + 1e-5
     
-    return brdf
+        D       = self.D(n_dot_h=n_dot_h, alpha=alpha)
+        F       = self.F(v_dot_h=v_dot_h, F0=material.F0)
+        V       = self.V(n_dot_v=n_dot_v, 
+                         n_dot_l=n_dot_l, 
+                         n_dot_h=n_dot_h, 
+                         v_dot_h=v_dot_h, alpha=alpha)
+        
+        return 0.25 * D * F * V
+        
+    def evaluate_D(self, n, l, v, material):
+        alpha   = np.maximum(1e-1, sqr(material.roughness))
+        h       = half_direction(l, v)
+        n_dot_h = sat_dot(n, h) + 1e-5
+        
+        return self.D(n_dot_h=n_dot_h, alpha=alpha)
+
+    def evaluate_F(self, n, l, v, material):
+        h       = half_direction(l, v)
+        v_dot_h = sat_dot(v, h) + 1e-5
+        
+        return self.F(v_dot_h=v_dot_h, F0=material.F0)
+
+    def evaluate_G(self, n, l, v, material):
+        alpha   = np.maximum(1e-1, sqr(material.roughness))
+        n_dot_l = sat_dot(n, l) + 1e-5
+        n_dot_v = sat_dot(n, v) + 1e-5
+        h       = half_direction(l, v)
+        n_dot_h = sat_dot(n, h) + 1e-5
+        v_dot_h = sat_dot(v, h) + 1e-5
+        
+        return self.G(n_dot_v=n_dot_v, 
+                      n_dot_l=n_dot_l, 
+                      n_dot_h=n_dot_h, 
+                      v_dot_h=v_dot_h, alpha=alpha)
+        
+    def evaluate_V(self, n, l, v, material):
+        alpha   = np.maximum(1e-1, sqr(material.roughness))
+        n_dot_l = sat_dot(n, l) + 1e-5
+        n_dot_v = sat_dot(n, v) + 1e-5
+        h       = half_direction(l, v)
+        n_dot_h = sat_dot(n, h) + 1e-5
+        v_dot_h = sat_dot(v, h) + 1e-5
+        
+        return self.V(n_dot_v=n_dot_v, 
+                      n_dot_l=n_dot_l, 
+                      n_dot_h=n_dot_h, 
+                      v_dot_h=v_dot_h, alpha=alpha)
+    
+brdf_blinn_phong   = BRDF(D=D_BlinnPhong, F=F_None,    G=G_Implicit, V=V_Implicit)
+brdf_cook_torrance = BRDF(D=D_GGX,        F=F_Schlick, G=G_GGX,      V=V_GGX)
+brdf_ward_duer     = BRDF(D=D_WardDuer,   F=F_None,    G=G_Ward,     V=V_Ward)
