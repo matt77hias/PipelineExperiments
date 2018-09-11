@@ -20,7 +20,7 @@ brdf_V     = 'GGX'
 labels_C   =('All', 'D', 'F', 'G', 'V')
 labels_D   =('Beckmann', 'Berry', 'Blinn-Phong', 'GGX', 'GTR1', 'GTR2', 'Trowbridge-Reitz', 'Ward-Duer')
 labels_F   =('Cook-Torrance', 'None', 'Schlick')
-labels_V   =('Ashikhmin-Premoze', 'Cook-Torrance', 'GGX', 'Neumann', 'Smith_Beckmann', 'Smith_GGX', 'Smith_Schlick-Beckmann', 'Smith_Schlick-GGX', 'Ward')
+labels_V   =('Ashikhmin-Premoze', 'Cook-Torrance', 'GGX', 'Implicit', 'Neumann', 'Smith_Beckmann', 'Smith_GGX', 'Smith_Schlick-Beckmann', 'Smith_Schlick-GGX', 'Ward')
 
 color_C    = 'purple'
 color_D    = 'blue'
