@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-from geometry import Hemisphere, Vector
-from math_utils import lerp, sat_dot, sqr, sqrt, sqr_cos_to_sqr_tan, half_direction, reflected_direction
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+from math_utils import lerp, sat_dot, sqr, sqrt, sqr_cos_to_sqr_tan, half_direction
 import numpy as np
 
 ###############################################################################

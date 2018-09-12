@@ -2,8 +2,6 @@ from brdf import BRDF, Material
 from geometry import Hemisphere, Vector
 from math_utils import reflected_direction
 import matplotlib.pyplot as plt
-from matplotlib.text import Text
-from matplotlib.patches import Circle
 from matplotlib.widgets import Slider, RadioButtons
 import numpy as np
 
