@@ -1,3 +1,5 @@
+% Tangent space about surface normal
+
 % The (normalized) surface normal expressed in tangent space.
 % (theta, phi) = (0,_)
 n = [0, 0, 1];
@@ -11,11 +13,11 @@ v = [sin(xi), 0, cos(xi)];
 v_norm = simplify(norm(v));
 
 % The (normalized) light (hit-to-light) direction expressed in tangent space.
-theta = sym('theta');
-assume(in(theta, 'real') & 0 <= theta & theta <= pi/2) 
+x = sym('x');
+assume(in(x, 'real') & 0 <= x & x <= 1) 
 phi = sym('phi');
 assume(in(phi, 'real') & 0 <= phi & phi <= 2*pi) 
-l = [cos(phi)*sin(theta), sin(phi)*sin(theta), cos(theta)];
+l = [cos(phi)*sqrt(1-x^2), sin(phi)*sqrt(1-x^2), x];
 l_norm = simplify(norm(l));
 
 % The (normalized) half direction expressed in tangent space.
@@ -27,9 +29,7 @@ h_norm = simplify(norm(h));
 n_dot_v = simplify(dot(n, v));
 n_dot_l = simplify(dot(n, l));
 n_dot_h = simplify(dot(n, h));
-n_dot_h = ses(subs(n_dot_h, sin(theta), sqrt(1-cos(theta)^2)));
 v_dot_h = simplify(dot(v, h));
-v_dot_h = ses(subs(v_dot_h, sin(theta), sqrt(1-cos(theta)^2)));
 
 % Material constants
 alpha = sym('alpha');
@@ -50,17 +50,10 @@ S = simplify((F * D * V) / 4);
 % d_omega      = -d_cos(theta)       d_phi | cos(theta)=(1,0) phi=(0,2*pi)
 % d_omega      =  d_cos(theta)       d_phi | cos(theta)=(0,1) phi=(0,2*pi)
 % d_omega      =  d_x                d_phi | x         =(0,1) phi=(0,2*pi)
-x = sym('x');
-assume(in(x, 'real') & 0 <= x & x <= 1);
 
-integrand_D  = ses(D * n_dot_l);
-integrand_D  = ses(subs(integrand_D,  cos(theta), x));
-
-integrand_M1 = ses(S * n_dot_l);
-integrand_M1 = ses(subs(integrand_M1, cos(theta), x));
-
-integrand_M2 = ses(S * n_dot_l^2);
-integrand_M2 = ses(subs(integrand_M2, cos(theta), x));
+%integrand_D  = ses(D * x);
+%integrand_M1 = ses(S * x);
+%integrand_M2 = ses(S * x^2);
 
 % Integrals
 %integral_D1  = ses(int(integrand_D,  phi, 0, 2*pi));
