@@ -9,8 +9,8 @@ from onb import OrthonormalBasis as onb
 ###############################################################################
 def transform_tangent_to_world(xs_tangent, ys_tangent, zs_tangent, p_world, d_world):
     tangent_to_world = onb(d_world)
-    ps_tangent       = np.stack((xs_tangent.ravel(), 
-                                 ys_tangent.ravel(), 
+    ps_tangent       = np.stack((xs_tangent.ravel(),
+                                 ys_tangent.ravel(),
                                  zs_tangent.ravel()), axis=1)
     ps_world         = np.dot(ps_tangent, tangent_to_world) - p_world
     
@@ -44,8 +44,8 @@ class Vector:
         self.p_end   = p_end
         
     def draw(self, axes, *args, **kwargs):
-        arrow = Arrow((self.p_start[0],self.p_end[0]), 
-                      (self.p_start[1],self.p_end[1]), 
+        arrow = Arrow((self.p_start[0],self.p_end[0]),
+                      (self.p_start[1],self.p_end[1]),
                       (self.p_start[2],self.p_end[2]), 
                       mutation_scale=10, 
                       lw=1, 
@@ -86,9 +86,9 @@ class Cone:
         zs_tangent = H
         
         self.xs_world, self.ys_world, self.zs_world \
-            = transform_tangent_to_world(xs_tangent=xs_tangent, 
-                                         ys_tangent=ys_tangent, 
-                                         zs_tangent=zs_tangent, 
+            = transform_tangent_to_world(xs_tangent=xs_tangent,
+                                         ys_tangent=ys_tangent,
+                                         zs_tangent=zs_tangent,
                                          p_world=self.p_world, 
                                          d_world=self.d_world)
         
@@ -130,14 +130,14 @@ class Hemisphere:
         zs_tangent = self.radius * CosT
         
         self.xs_world, self.ys_world, self.zs_world \
-            = transform_tangent_to_world(xs_tangent=xs_tangent, 
-                                         ys_tangent=ys_tangent, 
-                                         zs_tangent=zs_tangent, 
+            = transform_tangent_to_world(xs_tangent=xs_tangent,
+                                         ys_tangent=ys_tangent,
+                                         zs_tangent=zs_tangent,
                                          p_world=self.p_world, 
                                          d_world=self.d_world)
     
     def draw(self, axes, *args, **kwargs):
-        axes.plot_surface(X=self.xs_world, 
-                          Y=self.ys_world, 
-                          Z=self.zs_world, 
+        axes.plot_surface(X=self.xs_world,
+                          Y=self.ys_world,
+                          Z=self.zs_world,
                           *args, **kwargs)
