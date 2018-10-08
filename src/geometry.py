@@ -88,7 +88,7 @@ class Cone:
             = transform_tangent_to_world(xs_tangent=xs_tangent,
                                          ys_tangent=ys_tangent,
                                          zs_tangent=zs_tangent,
-                                         p_world=self.p_world, 
+                                         p_world=self.p_world,
                                          d_world=self.d_world)
         
 
@@ -114,7 +114,7 @@ class Hemisphere:
         self.radius     = radius
         self.nb_samples = nb_samples
         
-        self.construct()   
+        self.construct() 
         
     def construct(self):
         # shape (nb_cos_theta_samples)
