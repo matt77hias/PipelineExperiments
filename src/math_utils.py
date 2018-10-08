@@ -9,7 +9,7 @@ def copysign(v, x):
 def frac(x):
     return np.abs(np.modf(x)[0])
 
-# Linear interpolates between the first two given values using the third given 
+# Linear interpolates between the first two given values using the third given
 # value as weight.
 def lerp(x1, x2, a):
     return x1 + a * (x2 - x1)
@@ -21,7 +21,7 @@ def normalize(v):
    
 # Clamps the dot product of the given vectors between zero and one.
 def sat_dot(v1, v2):
-    return saturate(v1.dot(v2))	
+    return saturate(v1.dot(v2))
 
 # Clamps the given value between zero and one.
 def saturate(x):
