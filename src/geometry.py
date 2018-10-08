@@ -57,7 +57,7 @@ class Vector:
 ###############################################################################
 class Cone:
     
-    def __init__(self, 
+    def __init__(self,
                  p_world    = np.zeros((3)),
                  aperture   = np.pi/3.0,
                  d_world    = np.array([1.0,0.0,0.0]),
@@ -93,9 +93,9 @@ class Cone:
         
 
     def draw(self, axes, *args, **kwargs):
-        axes.plot_surface(X=self.xs_world, 
-                          Y=self.ys_world, 
-                          Z=self.zs_world, 
+        axes.plot_surface(X=self.xs_world,
+                          Y=self.ys_world,
+                          Z=self.zs_world,
                           *args, **kwargs)
 
 ###############################################################################
