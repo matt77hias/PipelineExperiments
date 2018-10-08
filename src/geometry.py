@@ -35,8 +35,8 @@ class Arrow(FancyArrowPatch):
         
 class Vector:
     
-    def __init__(self, 
-                 p_start = np.zeros((3)), 
+    def __init__(self,
+                 p_start = np.zeros((3)),
                  p_end   = np.array([1.0,0.0,0.0])):
         
         self.p_start = p_start
@@ -45,10 +45,10 @@ class Vector:
     def draw(self, axes, *args, **kwargs):
         arrow = Arrow((self.p_start[0],self.p_end[0]),
                       (self.p_start[1],self.p_end[1]),
-                      (self.p_start[2],self.p_end[2]), 
-                      mutation_scale=10, 
-                      lw=1, 
-                      arrowstyle="-|>", 
+                      (self.p_start[2],self.p_end[2]),
+                      mutation_scale=10,
+                      lw=1,
+                      arrowstyle="-|>",
                       *args, *kwargs)
         axes.add_artist(arrow)
         
@@ -58,10 +58,10 @@ class Vector:
 class Cone:
     
     def __init__(self, 
-                 p_world    = np.zeros((3)), 
-                 aperture   = np.pi/3.0, 
-                 d_world    = np.array([1.0,0.0,0.0]), 
-                 height     = 1.0, 
+                 p_world    = np.zeros((3)),
+                 aperture   = np.pi/3.0,
+                 d_world    = np.array([1.0,0.0,0.0]),
+                 height     = 1.0,
                  nb_samples = (16,64)):
         
         self.p_world    = p_world
@@ -103,10 +103,10 @@ class Cone:
 ###############################################################################
 class Hemisphere:
     
-    def __init__(self, 
-                 p_world    = np.zeros((3)), 
-                 d_world    = np.array([0.0,0.0,1.0]), 
-                 radius     = 1.0, 
+    def __init__(self,
+                 p_world    = np.zeros((3)),
+                 d_world    = np.array([0.0,0.0,1.0]),
+                 radius     = 1.0,
                  nb_samples = (16,64)):
         
         self.p_world    = p_world
