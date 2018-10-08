@@ -70,7 +70,7 @@ def rng2(seed):
     urand = hash_wang(seed)
     data_bytes = np.array([0x00, 0x00, 0x80, 0x2F], dtype=np.uint8)
     multiplier = data_bytes.view(dtype=np.float32) # 2^32
-    return urand * multiplier 
+    return urand * multiplier
 
 def rng3(seed):
     urand = hash_wang(seed)
