@@ -12,7 +12,7 @@ def OrthonormalBasis_HughesMoller(n):
     b2 = normalize(u)
     b1 = np.cross(b2, n)
     return np.array([b1, b2, n])
-     
+
 # Computes an orthonormal basis from a given unit vector with the method of
 # Frisvad.
 def OrthonormalBasis_Frisvad(n):
@@ -20,7 +20,7 @@ def OrthonormalBasis_Frisvad(n):
         b1 = np.array([ 0.0, -1.0, 0.0])
         b2 = np.array([-1.0,  0.0, 0.0])
         return (n, b1, b2)
-        
+    
     a = 1.0 / (1.0 + n[2])
     b = -n[0] * n[1] * a
     b1 = np.array([1.0 - n[0] * n[0] * a, b, -n[0]])
