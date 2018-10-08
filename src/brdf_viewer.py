@@ -153,7 +153,7 @@ radio_V.on_clicked(update_V)
 ###############################################################################
 # Slider: roughness
 ###############################################################################
-axes_roughness   = plt.axes([0.53, 0.09, 0.40, 0.03]) 
+axes_roughness   = plt.axes([0.53, 0.09, 0.40, 0.03])
 slider_roughness = Slider(ax=axes_roughness, label='Roughness',
                           valmin=0.0, valmax=1.0, valfmt='%1.4f',
                           valinit=material.roughness, color=color_C)
@@ -161,7 +161,7 @@ slider_roughness.on_changed(update_roughness)
 ###############################################################################
 # Slider: F0
 ###############################################################################
-axes_F0          = plt.axes([0.53, 0.05, 0.40, 0.03]) 
+axes_F0          = plt.axes([0.53, 0.05, 0.40, 0.03])
 slider_F0        = Slider(ax=axes_F0, label=r'$F_{0}$',
                           valmin=0.0, valmax=1.0, valfmt='%1.4f',
                           valinit=material.F0, color=color_C)
