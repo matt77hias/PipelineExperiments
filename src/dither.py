@@ -87,7 +87,7 @@ def dither(resolution=(1200,720), f=noise11, normalized=True):
     else:
         xs, ys = get_ss_matrix(resolution)
         data = f(xs * resolution[1] + ys)
-        
+    
     fig = plt.figure()
     ax  = fig.gca()
     ax.set_aspect('equal')
