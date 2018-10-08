@@ -55,8 +55,8 @@ def update():
     hemisphere = Hemisphere()
     for i in range(hemisphere.nb_samples[0]):
         for j in range(hemisphere.nb_samples[1]):
-            l    = np.array([hemisphere.xs_world[i,j], 
-                             hemisphere.ys_world[i,j], 
+            l    = np.array([hemisphere.xs_world[i,j],
+                             hemisphere.ys_world[i,j],
                              hemisphere.zs_world[i,j]])
             radius = multiplier * f(n=n, l=l, v=v, material=material)
             hemisphere.xs_world[i,j] *= radius
@@ -74,7 +74,7 @@ def update_C(label):
     update()
     fig.canvas.draw_idle()
     
-def update_D(label): 
+def update_D(label):
     global brdf_D
     brdf_D = label
     update()
@@ -106,14 +106,14 @@ def update_multiplier(val):
     global multiplier
     multiplier = val
     update()
-    fig.canvas.draw_idle() 
+    fig.canvas.draw_idle()
   
 ###############################################################################
 # Figure
 ###############################################################################
 fig = plt.figure()
 plt.subplots_adjust(left=0.37, bottom=0.25)
-axes = fig.add_subplot(111, projection='3d') 
+axes = fig.add_subplot(111, projection='3d')
 update()
 ###############################################################################
 # RadioButtons: BRDF
@@ -169,7 +169,7 @@ slider_F0.on_changed(update_F0)
 ###############################################################################
 # Slider: multiplier
 ###############################################################################
-axes_multiplier   = plt.axes([0.53, 0.01, 0.40, 0.03]) 
+axes_multiplier   = plt.axes([0.53, 0.01, 0.40, 0.03])
 slider_multiplier = Slider(ax=axes_multiplier, label='Multiplier',
                            valmin=0.0, valmax=10.0, valfmt='%1.4f',
                            valinit=multiplier, color=color_C)
