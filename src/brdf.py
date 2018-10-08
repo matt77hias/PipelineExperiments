@@ -117,7 +117,7 @@ def G1_Beckmann(n_dot_vl, alpha):
     
     if c < 1.6:
         return (3.535 * c + 2.8181 * c2) / (1.0 + 2.276 * c + 2.577 * c2)
-    else: 
+    else:
         return 1.0
 
 def G1_SchlickBeckmann(n_dot_vl, alpha):
@@ -355,7 +355,7 @@ class Material:
     
     def __init__(self, roughness=1.0, F0=g_dielectric_F0):
         self.roughness = roughness
-        self.F0        = F0  
+        self.F0        = F0
 
 ###############################################################################
 # BRDF
