@@ -26,7 +26,7 @@ def sat_dot(v1, v2):
 # Clamps the given value between zero and one.
 def saturate(x):
     return np.clip(x, 0.0, 1.0)
-	
+
 # Computes the square of the given value.
 def sqr(x):
     return x * x
@@ -34,7 +34,7 @@ def sqr(x):
 # Computes the square root of the given value.
 def sqrt(x):
     return np.sqrt(x)
-	
+
 # Computes the cosine of the given sine.
 def cos_to_sin(c):
     return sqrt(1.0 - sqr(c))
