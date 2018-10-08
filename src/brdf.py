@@ -211,7 +211,7 @@ def G_Smith_SchlickBeckmann(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha):
 #       n_dot_vl
 
 def V1_GGX(n_dot_vl, alpha):
-    #                               2                       
+    #                               2
     # V1 := ---------------------------------------------------
     #       n_dot_vl + sqrt(alpha^2 + (1 - alpha^2) n_dot_vl^2)
     
@@ -385,9 +385,9 @@ class BRDF:
     
         D       = self.D(n_dot_h=n_dot_h, alpha=alpha)
         F       = self.F(v_dot_h=v_dot_h, F0=material.F0)
-        V       = self.V(n_dot_v=n_dot_v, 
-                         n_dot_l=n_dot_l, 
-                         n_dot_h=n_dot_h, 
+        V       = self.V(n_dot_v=n_dot_v,
+                         n_dot_l=n_dot_l,
+                         n_dot_h=n_dot_h,
                          v_dot_h=v_dot_h, alpha=alpha)
         
         return 0.25 * D * F * V
@@ -413,9 +413,9 @@ class BRDF:
         n_dot_h = sat_dot(n, h) + 1e-5
         v_dot_h = sat_dot(v, h) + 1e-5
         
-        return self.G(n_dot_v=n_dot_v, 
-                      n_dot_l=n_dot_l, 
-                      n_dot_h=n_dot_h, 
+        return self.G(n_dot_v=n_dot_v,
+                      n_dot_l=n_dot_l,
+                      n_dot_h=n_dot_h,
                       v_dot_h=v_dot_h, alpha=alpha)
         
     def evaluate_V(self, n, l, v, material):
