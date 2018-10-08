@@ -426,9 +426,9 @@ class BRDF:
         n_dot_h = sat_dot(n, h) + 1e-5
         v_dot_h = sat_dot(v, h) + 1e-5
         
-        return self.V(n_dot_v=n_dot_v, 
-                      n_dot_l=n_dot_l, 
-                      n_dot_h=n_dot_h, 
+        return self.V(n_dot_v=n_dot_v,
+                      n_dot_l=n_dot_l,
+                      n_dot_h=n_dot_h,
                       v_dot_h=v_dot_h, alpha=alpha)
     
 brdf_blinn_phong   = BRDF(D=D_BlinnPhong, F=F_None,    G=G_Implicit, V=V_Implicit)
