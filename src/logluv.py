@@ -7,8 +7,8 @@ g_rgb_to_xyz      = np.array([[0.497, 0.339, 0.164], \
 g_xyz_to_xyd      = np.array([[1.000, 0.000, 1.000], \
                               [0.000, 1.000, 15.00], \
                               [0.000, 0.000, 3.000]])
-g_xy_xyz_to_x1yd1 = np.array([[  4/9, 0.000, 0.000], 
-                              [0.000, 1.000, 0.000], 
+g_xy_xyz_to_x1yd1 = np.array([[  4/9, 0.000, 0.000],
+                              [0.000, 1.000, 0.000],
                               [0.000, 0.000, 0.62/9]])
 g_rgb_to_x1yd1    = np.dot(np.dot(g_rgb_to_xyz, g_xyz_to_xyd), g_xy_xyz_to_x1yd1)
 

@@ -117,7 +117,7 @@ def G1_Beckmann(n_dot_vl, alpha):
     
     if c < 1.6:
         return (3.535 * c + 2.8181 * c2) / (1.0 + 2.276 * c + 2.577 * c2)
-    else: 
+    else:
         return 1.0
 
 def G1_SchlickBeckmann(n_dot_vl, alpha):
@@ -211,7 +211,7 @@ def G_Smith_SchlickBeckmann(n_dot_v, n_dot_l, n_dot_h, v_dot_h, alpha):
 #       n_dot_vl
 
 def V1_GGX(n_dot_vl, alpha):
-    #                               2                       
+    #                               2
     # V1 := ---------------------------------------------------
     #       n_dot_vl + sqrt(alpha^2 + (1 - alpha^2) n_dot_vl^2)
     
@@ -355,7 +355,7 @@ class Material:
     
     def __init__(self, roughness=1.0, F0=g_dielectric_F0):
         self.roughness = roughness
-        self.F0        = F0  
+        self.F0        = F0
 
 ###############################################################################
 # BRDF
@@ -385,9 +385,9 @@ class BRDF:
     
         D       = self.D(n_dot_h=n_dot_h, alpha=alpha)
         F       = self.F(v_dot_h=v_dot_h, F0=material.F0)
-        V       = self.V(n_dot_v=n_dot_v, 
-                         n_dot_l=n_dot_l, 
-                         n_dot_h=n_dot_h, 
+        V       = self.V(n_dot_v=n_dot_v,
+                         n_dot_l=n_dot_l,
+                         n_dot_h=n_dot_h,
                          v_dot_h=v_dot_h, alpha=alpha)
         
         return 0.25 * D * F * V
@@ -413,9 +413,9 @@ class BRDF:
         n_dot_h = sat_dot(n, h) + 1e-5
         v_dot_h = sat_dot(v, h) + 1e-5
         
-        return self.G(n_dot_v=n_dot_v, 
-                      n_dot_l=n_dot_l, 
-                      n_dot_h=n_dot_h, 
+        return self.G(n_dot_v=n_dot_v,
+                      n_dot_l=n_dot_l,
+                      n_dot_h=n_dot_h,
                       v_dot_h=v_dot_h, alpha=alpha)
         
     def evaluate_V(self, n, l, v, material):
@@ -426,9 +426,9 @@ class BRDF:
         n_dot_h = sat_dot(n, h) + 1e-5
         v_dot_h = sat_dot(v, h) + 1e-5
         
-        return self.V(n_dot_v=n_dot_v, 
-                      n_dot_l=n_dot_l, 
-                      n_dot_h=n_dot_h, 
+        return self.V(n_dot_v=n_dot_v,
+                      n_dot_l=n_dot_l,
+                      n_dot_h=n_dot_h,
                       v_dot_h=v_dot_h, alpha=alpha)
     
 brdf_blinn_phong   = BRDF(D=D_BlinnPhong, F=F_None,    G=G_Implicit, V=V_Implicit)

@@ -2,7 +2,7 @@
 from IPython.display import display
 import sympy as sp
 
-sp.init_printing(forecolor='White', use_unicode=True, wrap_line=False, no_global=True) 
+sp.init_printing(forecolor='White', use_unicode=True, wrap_line=False, no_global=True)
 
 def ses(exp):
     return exp

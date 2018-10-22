@@ -1,6 +1,9 @@
-[![License][s1]][li]
+[![Code quality][s1]][co] [![License][s2]][li]
 
-[s1]: https://img.shields.io/badge/licence-GPL%203.0-blue.svg
+[s1]: https://api.codacy.com/project/badge/Grade/821eda431c4d4375ac5013847d305495
+[s2]: https://img.shields.io/badge/licence-GPL%203.0-blue.svg
+
+[co]: https://www.codacy.com/app/matt77hias/PipelineExperiments?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=matt77hias/PipelineExperiments&amp;utm_campaign=Badge_Grad
 [li]: https://raw.githubusercontent.com/matt77hias/PipelineExperiments/master/LICENSE.txt
 
 # PipelineExperiments
