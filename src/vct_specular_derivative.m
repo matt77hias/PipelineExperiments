@@ -29,37 +29,22 @@ l = [x, y, sqrt(1-x^2-y^2)];
 % J = 1 / (sqrt(1-x^2-y^2) * sqrt(x^2+y^2));
 % will be eliminated after multiplication by cos(theta) sin(theta)
 
-% The (normalized) half direction expressed in tangent space.
-vl_norm = ses(norm(v + l));
-h = simplify((v + l) / vl_norm);
-h_norm = simplify(norm(h));
-
 % Dot products
 n_dot_v = simplify(dot(n, v));
 n_dot_l = simplify(dot(n, l));
-n_dot_h = simplify(dot(n, h));
-v_dot_h = simplify(dot(v, h));
+v_dot_l = simplify(dot(v, l));
+n_dot_h = (n_dot_v + n_dot_l) / sqrt(2 + 2*v_dot_l);
 
-% Material constants
-alpha = sym('alpha');
-assume(in(alpha, 'real') & 0 < alpha & alpha <= 1)
-F0 = sym('F0');
-assume(in(F0, 'real') & 0 <= F0 & F0 <= 1)
+Diff_xx = diff(n_dot_h, x, 2);
+Diff_yy = diff(n_dot_h, y, 2);
+Diff_xy = diff(diff(n_dot_h, x), y);
+Diff_yx = diff(diff(n_dot_h, y), x);
 
-% BRDF (components)
-V = simplify(2 / (n_dot_v*sqrt(alpha^2 + (1-alpha^2)*n_dot_l) ...
-                + n_dot_l*sqrt(alpha^2 + (1-alpha^2)*n_dot_v)));
-D = simplify(alpha^2 / (pi * (n_dot_h*(alpha^2-1) + 1)^2));
-F = simplify(F0 + (1-F0)*(1-v_dot_h)^5);  
-S = simplify((F * D * V) / 4);
-
-Diff_xx = subs(subs(diff(log(S), x, 2), x, 0), y, 0);
-Diff_yy = subs(subs(diff(log(S), y, 2), x, 0), y, 0);
-
-Diff_xx = expand(Diff_xx);
-Diff_xx = subs(Diff_xx, nx^2 + ny^2 + nz^2, 1);
-Diff_xx = subs(Diff_xx, vx^2 + vy^2 + vz^2, 1);
-
+n_dot_h_00 = subs(subs(n_dot_h, x, 0), y, 0);
+Diff_xx_00 = subs(subs(Diff_xx, x, 0), y, 0);
+Diff_yy_00 = subs(subs(Diff_yy, x, 0), y, 0);
+Diff_xy_00 = subs(subs(Diff_xy, x, 0), y, 0);
+Diff_yx_00 = subs(subs(Diff_yx, x, 0), y, 0);
 
 function result = ses(arg)
     result = simplify(expand(simplify(arg)));
