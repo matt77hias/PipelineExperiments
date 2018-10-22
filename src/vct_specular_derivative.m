@@ -46,6 +46,11 @@ Diff_yy_00 = subs(subs(Diff_yy, x, 0), y, 0);
 Diff_xy_00 = subs(subs(Diff_xy, x, 0), y, 0);
 Diff_yx_00 = subs(subs(Diff_yx, x, 0), y, 0);
 
+F_xx_00 = ses(Diff_xx_00 / n_dot_h_00);
+F_yy_00 = ses(Diff_yy_00 / n_dot_h_00);
+F_xy_00 = ses(Diff_xy_00 / n_dot_h_00);
+F_yx_00 = ses(Diff_yx_00 / n_dot_h_00);
+
 function result = ses(arg)
     result = simplify(expand(simplify(arg)));
 end
