@@ -49,7 +49,7 @@ class Vector:
                       mutation_scale=10,
                       lw=1,
                       arrowstyle="-|>",
-                      *args, *kwargs)
+                      *args, **kwargs)
         axes.add_artist(arrow)
         
 ###############################################################################
