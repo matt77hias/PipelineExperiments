@@ -18,23 +18,23 @@ Various BRDF functions and components.
 Various distance attenuation functions for point lights (omni lights and spotlights).
 
 <p align="center">
-<img src="res/distance_attenuation1.png" width="430">
-<img src="res/distance_attenuation2.png" width="430">
+<img src="res/distance_attenuation1.png" width="410">
+<img src="res/distance_attenuation2.png" width="410">
 </p>
 
 ### [Dither](https://github.com/matt77hias/PipelineExperiments/blob/master/src/dither.py)
 Various noise functions, hashing functions and random number generators for dithering.
 
 <p align="center">
-<img src="res/dither1.png" width="430">
-<img src="res/dither2.png" width="430">
+<img src="res/dither1.png" width="410">
+<img src="res/dither2.png" width="410">
 </p>
 
 ## [Voxel Cone Tracing](https://github.com/matt77hias/PipelineExperiments/blob/master/src/vct_diffuse.py)
 Cone sampling and cone weights.
 
 <p align="center">
-<img src="res/vct1.png" width="430">
+<img src="res/vct1.png" width="410">
 </p>
 
 
