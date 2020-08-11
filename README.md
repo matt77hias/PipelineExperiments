@@ -34,7 +34,7 @@ Various noise functions, hashing functions and random number generators for dith
 Cone sampling and cone weights.
 
 <p align="center">
-<img src="res/vct1.png" width="410">
+<img src="res/vct1.png">
 </p>
 
 
