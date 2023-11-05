@@ -49,3 +49,5 @@ Cone sampling and cone weights.
 | [ffpy](https://github.com/matt77hias/ffpy)         | Formfactor utilities                                               |
 | [fibpy](https://github.com/matt77hias/fibpy)       | Fibonacci spiral sampling (Quasi-Monte Carlo techniques) utilities |
 | [sampy](https://github.com/matt77hias/sampy)       | Sampling utilities                                                 |
+
+<p align="center">Copyright © 2016-2024 Matthias Moulin. All Rights Reserved.</p>
